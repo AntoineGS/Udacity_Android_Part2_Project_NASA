@@ -24,13 +24,13 @@ interface AsteroidApiService {
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY
-    )
+    ): Asteroid
 
     @GET("planetary/apod")
     suspend fun getPictureOfTheDay(
-        @Query("date") date: String,
+        // @Query("date") date: String, {For some reason the API gives a 400 error with it..}
         @Query("api_key") apiKey: String = BuildConfig.API_KEY
-    )
+    ): PictureOfDay
 }
 
 object AsteroidApi {
