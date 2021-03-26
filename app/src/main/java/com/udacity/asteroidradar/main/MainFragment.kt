@@ -21,10 +21,6 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
         setHasOptionsMenu(true)
 
-        viewModel.pictureOfDay.observe( viewLifecycleOwner, Observer {
-//            binding.textView.text = it.url
-        })
-
         return binding.root
     }
 
