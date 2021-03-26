@@ -19,6 +19,12 @@ class MainFragment : Fragment() {
         val binding = FragmentMainBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        val adapter = MainAsteroidAdapter(AsteroidClickListener { asteroid ->
+
+        })
+
+        binding.asteroidRecycler.adapter = adapter
         setHasOptionsMenu(true)
 
         return binding.root
