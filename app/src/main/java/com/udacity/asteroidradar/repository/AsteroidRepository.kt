@@ -22,11 +22,9 @@ class AsteroidRepository (private val database: AsteroidDatabase){
 
     private val _asteroidFilter: MutableLiveData<AsteroidFilter> =
             MutableLiveData(AsteroidFilter.ALL)
-//    val asteroidFilter: LiveData<AsteroidFilter>
-//        get() = _asteroidFilter
 
     val asteroids: LiveData<List<Asteroid>> = Transformations.switchMap(_asteroidFilter){ asteroidFilter ->
-        when (asteroidFilter) {
+        when (asteroidFilter!!) {
             AsteroidFilter.ALL -> Transformations.map(database.asteroidDao.getAsteroids()) {
                 it.asDomainModel()
             }
