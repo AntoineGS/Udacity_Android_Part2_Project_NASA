@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/app_background"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:onClick="@{() -> clickListener.onClick(asteroid)}">
 
         <TextView
             android:id="@+id/asteroid_codename"
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@{asteroid.codename}"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@{asteroid.closeApproachDate}"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/asteroid_codename"
             app:layout_constraintTop_toBottomOf="@+id/asteroid_codename"

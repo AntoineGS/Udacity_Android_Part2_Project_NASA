@@ -30,9 +30,11 @@ class AsteroidRepository (private val database: AsteroidDatabase){
     private suspend fun refreshPictureOfDayIfNeeded() {
         // todo: it would be interesting to check if today's image is there, if not return the
         // old one while we fetch the new url, and using livedata have the image update
-        if (database.pictureOfDayDao.getPictureOfDay() == null) {
-            val pictureOfDay = AsteroidApi.retrofitService.getPictureOfTheDay()
-            database.pictureOfDayDao.insertPictureOfDay(pictureOfDay.asDatabaseModel())
+        withContext(Dispatchers.IO) {
+            if (database.pictureOfDayDao.getPictureOfDay() == null) {
+                val pictureOfDay = AsteroidApi.retrofitService.getPictureOfTheDay()
+                database.pictureOfDayDao.insertPictureOfDay(pictureOfDay.asDatabaseModel())
+            }
         }
     }
 
