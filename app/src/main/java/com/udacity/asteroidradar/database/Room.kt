@@ -19,8 +19,17 @@ interface PictureOfDayDao {
 
 @Dao
 interface AsteroidDao {
-    @Query("select * from databaseasteroid")
+    @Query("select * from databaseasteroid order by date(closeApproachDate) asc")
     fun getAsteroids(): LiveData<List<DatabaseAsteroid>>
+
+    @Query("select * from databaseasteroid where " +
+            "strftime('%Y-%m-%d',closeApproachDate) >= strftime('%Y-%m-%d','now') " +
+            "order by date(closeApproachDate) asc")
+    fun getWeekAsteroids(): LiveData<List<DatabaseAsteroid>>
+
+    @Query("select * from databaseasteroid where " +
+            "strftime('%Y-%m-%d',closeApproachDate) = strftime('%Y-%m-%d','now')")
+    fun getTodayAsteroids(): LiveData<List<DatabaseAsteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAsteroid(vararg asteroid: DatabaseAsteroid)

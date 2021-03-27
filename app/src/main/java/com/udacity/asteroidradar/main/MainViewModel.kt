@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.udacity.asteroidradar.database.getDatabase
 import com.udacity.asteroidradar.domain.PictureOfDay
+import com.udacity.asteroidradar.repository.AsteroidFilter
 import com.udacity.asteroidradar.repository.AsteroidRepository
 import kotlinx.coroutines.launch
 
@@ -37,5 +38,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             asteroidRepository.refreshAsteroids()
         }
+    }
+
+    fun updateFilter(asteroidFilter: AsteroidFilter) {
+        asteroidRepository.updateFiler(asteroidFilter)
     }
 }
