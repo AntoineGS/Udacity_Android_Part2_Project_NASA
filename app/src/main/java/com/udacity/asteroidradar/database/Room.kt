@@ -1,6 +1,7 @@
 package com.udacity.asteroidradar.database
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -16,13 +17,23 @@ interface PictureOfDayDao {
     suspend fun insertPictureOfDay(vararg pictureOfDay: DatabasePictureOfDay)
 }
 
-private lateinit var INSTANCE: AsteroidDatabase
+@Dao
+interface AsteroidDao {
+    @Query("select * from databaseasteroid")
+    fun getAsteroids(): LiveData<List<DatabaseAsteroid>>
 
-@Database(entities = [DatabasePictureOfDay::class], version = 1)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAsteroid(vararg asteroid: DatabaseAsteroid)
+}
+
+@Database(entities = [DatabasePictureOfDay::class, DatabaseAsteroid::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class AsteroidDatabase : RoomDatabase() {
     abstract val pictureOfDayDao: PictureOfDayDao
+    abstract val asteroidDao: AsteroidDao
 }
+
+private lateinit var INSTANCE: AsteroidDatabase
 
 fun getDatabase(context: Context): AsteroidDatabase {
     synchronized(AsteroidDatabase::class.java) {

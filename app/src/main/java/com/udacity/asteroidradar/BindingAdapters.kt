@@ -4,8 +4,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.udacity.asteroidradar.domain.Asteroid
+import com.udacity.asteroidradar.main.MainAsteroidAdapter
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
@@ -54,5 +57,14 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                     .placeholder(R.drawable.placeholder_picture_of_day)
                     .error(R.drawable.placeholder_picture_of_day))
             .into(imgView)
+    }
+}
+
+@BindingAdapter("listData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asteroid>?) {
+    val adapter = recyclerView.adapter as MainAsteroidAdapter
+    adapter.submitList(data) {
+        // scroll the list to the top after the diffs are calculated and posted
+        recyclerView.scrollToPosition(0)
     }
 }
